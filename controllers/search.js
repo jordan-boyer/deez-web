@@ -2,7 +2,7 @@
 import {getMusicsFromDeezer} from "../utils/deezer-api";
 import $ from "jquery";
 
-import {musicTemplate} from "../utils/template";
+import {musicTemplate, addFavoriteBtn} from "../utils/template";
 
 //Class definition for page Search
 export default class Search {
@@ -23,12 +23,14 @@ export default class Search {
                 //prevent submit of form
                 e.preventDefault();
 
-                const title = $title.val();
-                const tri = $tri.val();
+                let title = $title.val();
+                let tri = $tri.val();
 
+                console.log(`title=${title} & tri=${tri}`);
                 //get all music base on data
                 getMusicsFromDeezer(title, tri)
                     .then(musiques => {
+                        console.log(musiques);
                         if (musiques.data.length !== 0) {
                             $result.html("");
                             for (let musique of musiques.data) {
@@ -42,7 +44,9 @@ export default class Search {
                                     preview: musique.preview
                                 }
                                 //add template for each item
-                                $result.append(musicTemplate(musicObj));
+                                let musicHtml = musicTemplate(musicObj);
+                                $result.append(musicHtml);
+                                $('audio').last().after(addFavoriteBtn(musicObj));
                             }
                         } else {
                             $result.html("Nous sommes désolé, nous n'obtenons pas de résultats pour cette recherche...");

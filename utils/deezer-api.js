@@ -16,7 +16,7 @@ export function getMusicsFromDeezer(title, order) {
     order = encodeURIComponent(order);
 
     // fetchJsonp because deezer API doesn't support fecth (origin not allow)
-    return fetchJsonp(`${apiBaseURL}${searchOption}${title}&${orderOption}${order}&${output}`)
+    return fetchJsonp(`${apiBaseURL}${searchOption}${title}&${orderOption}${order}&${output}&limit=10`)
     .then(response => response.json());
 }
 
