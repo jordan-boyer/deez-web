@@ -4,7 +4,8 @@
   "description": "1er projet pour l'ecole multimédia",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server --open --mode development",
+    "build": "webpack -p"
   },
   "author": "",
   "license": "ISC",
