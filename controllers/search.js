@@ -2,6 +2,8 @@
 import {getMusicsFromDeezer} from "../utils/deezer-api";
 import $ from "jquery";
 
+import {musicTemplate} from "../utils/template";
+
 //Class definition for page Search
 export default class Search {
 
@@ -11,18 +13,11 @@ export default class Search {
 
     init() {
         $(function() {
+            'use strict';
             const $form = $("form");
             const $title = $form.find("#title");
             const $tri = $form.find("#tri");
             const $result = $("#resultSection");
-
-            //Add music to the page
-            function addMusic(music) {
-                $result.html(`<img src="${music.album.cover_medium}">
-                <h4>${music.title}</h4>
-                <h5>${music.artist.name} / ${music.album.title}</h5>
-                <audio controls src="${music.preview}">Your browser does not support the<code>audio</code> element.</audio>`)
-            }
 
             $form.submit((e) => {
                 //prevent submit of form
@@ -35,7 +30,20 @@ export default class Search {
                 getMusicsFromDeezer(title, tri)
                     .then(musiques => {
                         if (musiques.data.length !== 0) {
-                            addMusic(musiques.data[0]);
+                            $result.html("");
+                            for (let musique of musiques.data) {
+                                //define obj for template
+                                let musicObj = {
+                                    id: musique.id,
+                                    title: musique.title,
+                                    artist: musique.artist.name,
+                                    album: musique.album.title,
+                                    album_cover: musique.album.cover_medium,
+                                    preview: musique.preview
+                                }
+                                //add template for each item
+                                $result.append(musicTemplate(musicObj));
+                            }
                         } else {
                             $result.html("Nous sommes désolé, nous n'obtenons pas de résultats pour cette recherche...");
                         }  
