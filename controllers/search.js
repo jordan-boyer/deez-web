@@ -9,10 +9,17 @@ export default class Search {
 
     constructor() {
         this.view = "search";
+        this.observer = new IntersectionObserver(this.observe);
+    }
+
+    observe(entries) {
+        if (entries[0].isIntersecting) {
+            //next page
+        }
     }
 
     init() {
-        $(function() {
+        $(() => {
             'use strict';
             const $form = $("form");
             const $title = $form.find("#title");
@@ -44,11 +51,11 @@ export default class Search {
                                 //add template for each item
                                 addMusicTemplateToPage($result, musicObj);
                             }
+                            this.observer.observe($(".song").last()[0]);
                         } else {
                             $result.html("Nous sommes désolé, nous n'obtenons pas de résultats pour cette recherche...");
                         }  
                     }).catch(error => {
-                        console.log(error);
                         $result.html(`Nous sommes désolé mais une erreur est parvenue, vous pouvez recharger la page et essayer de nouveau
                         Si le problème persiste rendez-vous sur <a href="https://github.com/jordan-boyer/deez-web">cette page</a> pour nous contactez`);
                     });
