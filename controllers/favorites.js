@@ -2,7 +2,7 @@
 import $ from "jquery";
 
 import {getFavorites} from "../utils/storage";
-import {musicTemplate, addFavoriteBtn} from "../utils/template"
+import {addMusicTemplateToPage} from "../utils/template"
 
 // Class definition for Favorites page
 export default class Favorites {
@@ -19,9 +19,7 @@ export default class Favorites {
             let musics = getFavorites();
             if (musics) {
                 for (let music of musics) {
-                    let musicHtml = musicTemplate(music);
-                    $sectionFavorites.append(musicHtml);
-                    $('audio').last().after(addFavoriteBtn(music));
+                    addMusicTemplateToPage($sectionFavorites, music);
                 }
             }
         });

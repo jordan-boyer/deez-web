@@ -2,7 +2,7 @@
 import {getMusicsFromDeezer} from "../utils/deezer-api";
 import $ from "jquery";
 
-import {musicTemplate, addFavoriteBtn} from "../utils/template";
+import {addMusicTemplateToPage} from "../utils/template";
 
 //Class definition for page Search
 export default class Search {
@@ -42,9 +42,7 @@ export default class Search {
                                     preview: musique.preview
                                 }
                                 //add template for each item
-                                let musicHtml = musicTemplate(musicObj);
-                                $result.append(musicHtml);
-                                $('audio').last().after(addFavoriteBtn(musicObj));
+                                addMusicTemplateToPage($result, musicObj);
                             }
                         } else {
                             $result.html("Nous sommes désolé, nous n'obtenons pas de résultats pour cette recherche...");

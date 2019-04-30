@@ -2,7 +2,7 @@
 import $ from "jquery";
 
 import {getRandomFavorite} from "../utils/storage";
-import {musicTemplate, addFavoriteBtn} from "../utils/template"
+import {addMusicTemplateToPage} from "../utils/template"
 
 // Class definition for Home page
 export default class Home {
@@ -18,9 +18,7 @@ export default class Home {
 
             let music = getRandomFavorite()
             if (music) {
-                let musicHtml = musicTemplate(music);
-                $sectionFavorite.append(musicHtml);
-                $('audio').last().after(addFavoriteBtn(music));
+                addMusicTemplateToPage($sectionFavorite, music);
             }
         });
     }

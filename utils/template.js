@@ -31,7 +31,7 @@ function onAddfavorite(e) {
 }
 
 //button for favorite
-export function addFavoriteBtn(music) {
+function addFavoriteBtn(music) {
     let btn = $('<button></button>');
     if (isFavorite(music.id)) {
         btn.html(removeText);
@@ -43,8 +43,14 @@ export function addFavoriteBtn(music) {
     return btn;
 }
 
+export function addMusicTemplateToPage(parent, music) {
+    let musicHtml = musicTemplate(music);
+    parent.append(musicHtml);
+    $('audio').last().after(addFavoriteBtn(music));
+}
+
 //template for a music
-export function musicTemplate(music) {
+function musicTemplate(music) {
     return $(`<div class="song"><img src="${music.album_cover}">
     <h4>${music.title}</h4>
     <h5>${music.artist} / ${music.album}</h5>
