@@ -14,6 +14,10 @@ function onRemovefavorite(e) {
     $self.off("click", onRemovefavorite);
     $self.on("click", e.data, onAddfavorite);
     $self.html(addText);
+    let $parent = $self.parents("#favorites");
+    if ($parent.length > 0) {
+        $self.parent(".song").remove();
+    }
     removeFavorite(e.data.id);
 }
 
@@ -41,8 +45,8 @@ export function addFavoriteBtn(music) {
 
 //template for a music
 export function musicTemplate(music) {
-    return $(`<img src="${music.album_cover}">
+    return $(`<div class="song"><img src="${music.album_cover}">
     <h4>${music.title}</h4>
     <h5>${music.artist} / ${music.album}</h5>
-    <audio controls src="${music.preview}">Your browser does not support the<code>audio</code> element.</audio>`);
+    <audio controls src="${music.preview}">Your browser does not support the<code>audio</code> element.</audio></div>`);
 }

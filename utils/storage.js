@@ -24,7 +24,7 @@ export function removeFavorite(id) {
     localStorage.setItem(storageName, JSON.stringify(favorites));
 }
 
-function getFavorites() {
+export function getFavorites() {
     return JSON.parse(localStorage.getItem(storageName)) || [];
 }
 
