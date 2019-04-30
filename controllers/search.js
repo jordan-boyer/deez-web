@@ -9,12 +9,15 @@ export default class Search {
 
     constructor() {
         this.view = "search";
-        this.observer = new IntersectionObserver(this.observe);
+        this.parent = null;
+        this.observer = new IntersectionObserver(this.observe.bind(this));
+        this.nextPage = null;
     }
 
     observe(entries) {
-        if (entries[0].isIntersecting) {
-            //next page
+        if (entries.length > 0 && entries[0].isIntersecting) {
+            this.observer.unobserve(entries[0].target);
+            this.requestMusic(this.nextPage);
         }
     }
 
@@ -24,7 +27,7 @@ export default class Search {
             const $form = $("form");
             const $title = $form.find("#title");
             const $tri = $form.find("#tri");
-            const $result = $("#resultSection");
+            this.parent = $("#resultSection");
 
             $form.submit((e) => {
                 //prevent submit of form
@@ -34,33 +37,45 @@ export default class Search {
                 let tri = $tri.val();
 
                 //get all music base on data
-                getMusicsFromDeezer(title, tri)
-                    .then(musiques => {
-                        if (musiques.data.length !== 0) {
-                            $result.html("");
-                            for (let musique of musiques.data) {
-                                //define obj for template
-                                let musicObj = {
-                                    id: musique.id,
-                                    title: musique.title,
-                                    artist: musique.artist.name,
-                                    album: musique.album.title,
-                                    album_cover: musique.album.cover_medium,
-                                    preview: musique.preview
-                                }
-                                //add template for each item
-                                addMusicTemplateToPage($result, musicObj);
-                            }
-                            this.observer.observe($(".song").last()[0]);
-                        } else {
-                            $result.html("Nous sommes désolé, nous n'obtenons pas de résultats pour cette recherche...");
-                        }  
-                    }).catch(error => {
-                        $result.html(`Nous sommes désolé mais une erreur est parvenue, vous pouvez recharger la page et essayer de nouveau
-                        Si le problème persiste rendez-vous sur <a href="https://github.com/jordan-boyer/deez-web">cette page</a> pour nous contactez`);
-                    });
+                this.requestMusic(title, tri, true);
             });
-            
         });
+    }
+
+    requestMusic(title, tri, newRequest = false) {
+        getMusicsFromDeezer(title, tri)
+        .then(musiques => {
+            this.processMusics(musiques, newRequest);
+        }).catch(error => {
+            this.parent.html(`Nous sommes désolé mais une erreur est parvenue, vous pouvez recharger la page et essayer de nouveau
+            Si le problème persiste rendez-vous sur <a href="https://github.com/jordan-boyer/deez-web">cette page</a> pour nous contactez`);
+        });
+    }
+
+    processMusics(musiques, newRequest = false) {
+        if (musiques.data.length !== 0) {
+            if (newRequest) 
+                this.parent.html("");
+            for (let musique of musiques.data) {
+                //define obj for template
+                let musicObj = {
+                    id: musique.id,
+                    title: musique.title,
+                    artist: musique.artist.name,
+                    album: musique.album.title,
+                    album_cover: musique.album.cover_medium,
+                    preview: musique.preview
+                }
+                //add template for each item
+                
+                addMusicTemplateToPage(this.parent, musicObj);
+                
+            }
+
+            this.observer.observe($(".song").last()[0]);
+            this.nextPage = musiques.next;
+        } else {
+            this.parent.html("Nous sommes désolé, nous n'obtenons pas de résultats pour cette recherche...");
+        }
     }
 };
