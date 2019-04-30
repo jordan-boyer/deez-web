@@ -28,7 +28,16 @@ function getFavorites() {
     return JSON.parse(localStorage.getItem(storageName)) || [];
 }
 
-export function getRandomFavorite() {
+// return integers between 0 included and max excluded
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max)
+}
 
+export function getRandomFavorite() {
+    let favorites = getFavorites();
+    if (favorites.length > 0) {
+        return favorites[getRandomInt(favorites.length)];
+    }
+    return false;
 }
 

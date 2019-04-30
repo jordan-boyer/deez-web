@@ -26,11 +26,9 @@ export default class Search {
                 let title = $title.val();
                 let tri = $tri.val();
 
-                console.log(`title=${title} & tri=${tri}`);
                 //get all music base on data
                 getMusicsFromDeezer(title, tri)
                     .then(musiques => {
-                        console.log(musiques);
                         if (musiques.data.length !== 0) {
                             $result.html("");
                             for (let musique of musiques.data) {
