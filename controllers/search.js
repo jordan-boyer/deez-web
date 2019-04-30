@@ -50,6 +50,7 @@ export default class Search {
                             $result.html("Nous sommes désolé, nous n'obtenons pas de résultats pour cette recherche...");
                         }  
                     }).catch(error => {
+                        console.log(error);
                         $result.html(`Nous sommes désolé mais une erreur est parvenue, vous pouvez recharger la page et essayer de nouveau
                         Si le problème persiste rendez-vous sur <a href="https://github.com/jordan-boyer/deez-web">cette page</a> pour nous contactez`);
                     });
