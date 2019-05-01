@@ -17,10 +17,12 @@ export default class Favorites {
             const $sectionFavorites = $("#favorites");
 
             let musics = getFavorites();
-            if (musics) {
+            if (musics.length > 0) {
                 for (let music of musics) {
                     addMusicTemplateToPage($sectionFavorites, music);
                 }
+            } else {
+                $sectionFavorites.html("Aucun favoris dans votre liste ...");
             }
         });
     }

@@ -1,4 +1,5 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -6,34 +7,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Deez-web</title>
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/search.css">
-    <link rel="stylesheet" href="css/favorites.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">
-            <img src="./favicon.png" class="d-inline-block align-top" alt="Deezweb icon">
-            Deezweb
-        </a>
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#/">Acceuil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#/search">Rechercher un titre</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#/favorites">Mes favoris</a>
-            </li>
-        </ul>
-    </nav>
-    <main>
+    <div class="container dark">
+        <nav class="nav">
+            <img src="./favicon.png" alt="application icon">
+            <h1>Deeweb</h1>
+            <ul class="menu">
+                <li class="menu-item"><a href="#/" class="menu-link"><i class="icon fas fa-home"></i>Accueil</a></li>
+                <li class="menu-item"><a href="#/search" class="menu-link"><i class="icon fas fa-search"></i>Rechercher un titre</a></li>
+                <li class="menu-item"><a href="#/favorites" class="menu-link"><i class="icon fas fa-heart"></i>Mes favoris</a></li>
+            </ul>
+        </nav>
+        <main class="main">
 
-    </main>
+        </main>
+    </div>
     <script type="module" src="bundle.js"></script>
 </body>
 

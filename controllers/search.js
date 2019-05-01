@@ -47,8 +47,9 @@ export default class Search {
         .then(musiques => {
             this.processMusics(musiques, newRequest);
         }).catch(error => {
-            this.parent.html(`Nous sommes désolé mais une erreur est parvenue, vous pouvez recharger la page et essayer de nouveau
-            Si le problème persiste rendez-vous sur <a href="https://github.com/jordan-boyer/deez-web">cette page</a> pour nous contactez`);
+            console.log(error);
+            this.parent.html(`<span class="span">Nous sommes désolé mais une erreur est parvenue, vous pouvez recharger la page et essayer de nouveau</span>
+            <span class="span">Si le problème persiste rendez-vous sur <a href="https://github.com/jordan-boyer/deez-web">cette page</a> pour nous contactez</span>`);
         });
     }
 
@@ -71,9 +72,10 @@ export default class Search {
                 addMusicTemplateToPage(this.parent, musicObj);
                 
             }
-
-            this.observer.observe($(".song").last()[0]);
-            this.nextPage = musiques.next;
+            if (musiques.next) {
+                this.nextPage = musiques.next;
+                this.observer.observe($(".song").last()[0]);
+            } 
         } else {
             this.parent.html("Nous sommes désolé, nous n'obtenons pas de résultats pour cette recherche...");
         }

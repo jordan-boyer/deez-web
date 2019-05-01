@@ -15,12 +15,25 @@ function getFromCache(url) {
     return false
 }
 
-export async function cache(url, fallback) {
+async function tryUrl(url, fallback, retry) {
+    try {
+        let response = await fallback(url);
+        let data = await response.json();
+        saveToCache(url, data);
+        return data;
+    } catch (e) {
+        if (retry > 0 && e.message.includes("timed out")) {    
+            return tryUrl(url, fallback, retry - 1);
+        } else {
+            throw e;
+        }
+    }
+}
+
+export function cache(url, fallback, retry) {
     let data = getFromCache(url);
     if (!data) {
-        let response = await fallback(url);
-        data = await response.json();
-        saveToCache(url, data);
+        data = tryUrl(url, fallback, retry)
     }
     return Promise.resolve(data);
 }

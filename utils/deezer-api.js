@@ -20,9 +20,9 @@ export function getMusicsFromDeezer(title, order) {
         order = encodeURIComponent(order); 
         // Get data from cache if existing else get data from 
         // fetchJsonp because deezer API doesn't support fecth (origin not allow)
-        return cache(`${apiBaseURL}${searchOption}${title}&${orderOption}${order}&${output}`, fetchJsonp);
+        return cache(`${apiBaseURL}${searchOption}${title}&${orderOption}${order}&${output}`, fetchJsonp, 2);
     } else {
-        return cache(title, fetchJsonp);
+        return cache(title, fetchJsonp, 5);
     }
 
     
