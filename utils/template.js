@@ -66,7 +66,21 @@ function addFavoriteBtn(music) {
 export function addMusicTemplateToPage(parent, music) {
     let musicHtml = musicTemplate(music);
     parent.append(musicHtml);
-    $('audio').last().after(addFavoriteBtn(music));
+    let $audio = musicHtml.find("audio");
+    $audio.on("play", function (e) {
+        parent = $(this).parent();
+        let $fixed = $(".fixed");
+        $fixed.html("");
+        parent.appendTo($fixed);
+        $(this).off("play");
+        parent.append('<button class="btn-close"><i class="fas fa-times"></i></button>');
+        $(".btn-close").click(() => {
+            $audio[0].pause();
+            console.log($audio);
+            parent.prependTo($(".section"));
+        });
+    });
+    $audio.after(addFavoriteBtn(music));
 }
 
 //template for a music

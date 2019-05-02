@@ -61,9 +61,7 @@ body {
 }
 
 .menu .menu-item:hover,
-.menu .menu-link:hover,
-.menu .menu-item:focus,
-.menu .menu-link:focus {
+.menu .menu-link:hover{
     color: #DB4D41;
 }
 
@@ -82,6 +80,7 @@ body {
 
 .song {
     display: grid;
+    position: relative;
     grid-template-rows: repeat(4, minmax(min-content, max-content));
     grid-template-columns: repeat(3,minmax(min-content, max-content)) repeat(2,minmax(min-content, 1fr));
     grid-gap: 2rem;
@@ -199,4 +198,23 @@ section h3 {
     font-size: 1.5rem;
     border: none;
     margin-left: 1rem;
+}
+
+.fixed {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.btn-close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    color: #F7F7F2;
+}
+
+.btn-close:focus {
+    outline: none;
 }
