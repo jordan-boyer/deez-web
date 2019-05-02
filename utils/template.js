@@ -67,17 +67,25 @@ export function addMusicTemplateToPage(parent, music) {
     let musicHtml = musicTemplate(music);
     parent.append(musicHtml);
     let $audio = musicHtml.find("audio");
-    $audio.on("play", function (e) {
-        parent = $(this).parent();
+    $audio.on("play", function onplay(e) {
+        let $this = $(this);
+
+        let $clone = $this.parent().clone();
         let $fixed = $(".fixed");
+        
+        $this[0].pause();
+        $clone.addClass("song-play");
+        $clone.find(".song-favorite").remove();
+        $clone.find(".song-cover").remove();
+        $clone.children().addClass("span");
         $fixed.html("");
-        parent.appendTo($fixed);
-        $(this).off("play");
-        parent.append('<button class="btn-close"><i class="fas fa-times"></i></button>');
+        $fixed.append($clone);
+        $clone.find("audio")[0].play();
+        $this.off("play");
+        $clone.append('<button class="btn-close"><i class="fas fa-times"></i></button>');
         $(".btn-close").click(() => {
-            $audio[0].pause();
-            console.log($audio);
-            parent.prependTo($(".section"));
+            $this.on("play", onplay);
+            $fixed.html("");
         });
     });
     $audio.after(addFavoriteBtn(music));

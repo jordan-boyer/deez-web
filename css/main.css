@@ -82,11 +82,15 @@ body {
     display: grid;
     position: relative;
     grid-template-rows: repeat(4, minmax(min-content, max-content));
-    grid-template-columns: repeat(3,minmax(min-content, max-content)) repeat(2,minmax(min-content, 1fr));
+    grid-template-columns: repeat(3,minmax(auto, max-content)) repeat(2,minmax(min-content, 1fr));
     grid-gap: 2rem;
     padding: 1rem;
     border: 5px solid #F7F7F2;
     min-height: 100%;
+}
+
+.song-play {
+    background-color: #050505;
 }
 
 .song-cover {
@@ -120,7 +124,7 @@ body {
 .song-favorite {
     grid-row: 3;
     grid-column: 4 / span 2;
-    height: 5rem;
+    padding: 1rem;
     align-self: center;
     font-size: 1.5rem;
     border: 1px solid #DB4D41;
@@ -175,6 +179,7 @@ section h3 {
 
 .span {
     grid-column: 1 / -1;
+    grid-row: auto;
 }
 
 .form-label-input,
