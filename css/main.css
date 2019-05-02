@@ -178,15 +178,25 @@ section h3 {
     grid-column: 1 / -1;
 }
 
-.form-label-input {
+.form-label-input,
+.form-label-select {
     margin-right: 1rem;
+}
+
+.form-input {
+    min-width: 24rem;
+    margin-right: 4rem;
+}
+
+.form {
+    margin-top: 3rem;
 }
 
 .form-submit {
     background-color: #1B9AAA;
     color: #F7F7F2;
-    font-size: 1.5rem;
     padding: 0.5rem;
+    font-size: 1.5rem;
     border: none;
     margin-left: 1rem;
 }
