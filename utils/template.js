@@ -11,13 +11,15 @@ const addText = '<i class="icon fas"></i>Ajouter aux favoris';
 //event handler for click on removeFavoriteBtn
 function onRemovefavorite(e) {
     let $self = $(this);
-    let $icon = $self.find("i");
 
     $self.addClass("isNotFavorite");
     $self.removeClass("isFavorite");
     $self.off("click", onRemovefavorite);
     $self.on("click", e.data, onAddfavorite);
     $self.html(addText);
+
+    let $icon = $self.find("i");
+
     $icon.addClass("fa-heart");
     $icon.removeClass("fa-heart-broken");
 
@@ -31,13 +33,14 @@ function onRemovefavorite(e) {
 //event handler for click on addFavoriteBtn
 function onAddfavorite(e) {
     let $self = $(this);
-    let $icon = $self.find("i");
 
     $self.removeClass("isNotFavorite");
     $self.addClass("isFavorite");
     $self.off("click", onAddfavorite);
     $self.on("click", e.data, onRemovefavorite);
     $self.html(removeText);
+
+    let $icon = $self.find("i");
     $icon.addClass("fa-heart-broken");
     $icon.removeClass("fa-heart");
     addFavorite(e.data);

@@ -2,10 +2,10 @@
 <h2>Recherche</h2>
 <h3>Rechercher un titre sur deezer avec le formulaire suivant: </h3>
 <form>
-    <label for="title">Titre: </label>
-    <input required type="text" class="form-control" id="title" placeholder="Entrer un titre ou un artites Ex: Eminem">
-    <label for="tri">Trier par: </label>
-    <select class="custom-select" id="tri">
+    <label for="title" class="form-label-input">Titre: </label>
+    <input required type="text" class="form-input" id="title" placeholder="Entrer un titre ou un artites Ex: Eminem">
+    <label for="tri" class="form-label-select">Trier par: </label>
+    <select class="form-select" id="tri">
         <option selected value="ALBUM_DESC">Album</option>
         <option value="ARTIST_DESC">Artiste</option>
         <option value="TRACK_DESC">Musique</option>
@@ -13,7 +13,7 @@
         <option value="RATING_DESC">Les mieux notés</option>
         <option value="DURATION_DESC">Durées</option>
     </select>
-    <button type="submit" class="btn btn-primary">Go</button>
+    <button type="submit" class="form-submit">Go</button>
 </form>
 </section>
 <section id="resultSection">
