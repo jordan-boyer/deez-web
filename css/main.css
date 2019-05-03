@@ -61,7 +61,7 @@ body {
 }
 
 .menu .menu-item:hover,
-.menu .menu-link:hover{
+.menu .menu-link:hover {
     color: #DB4D41;
 }
 
@@ -82,7 +82,7 @@ body {
     display: grid;
     position: relative;
     grid-template-rows: repeat(4, minmax(min-content, max-content));
-    grid-template-columns: repeat(3,minmax(auto, max-content)) repeat(2,minmax(min-content, 1fr));
+    grid-template-columns: repeat(3, minmax(auto, max-content)) repeat(2, minmax(min-content, 1fr));
     grid-gap: 2rem;
     padding: 1rem;
     border: 5px solid #F7F7F2;
@@ -193,6 +193,7 @@ section h3 {
 }
 
 .form {
+    display: flex;
     margin-top: 3rem;
 }
 
@@ -215,11 +216,99 @@ section h3 {
     position: absolute;
     right: 1rem;
     top: 1rem;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     border: none;
     color: #F7F7F2;
 }
 
 .btn-close:focus {
     outline: none;
+}
+
+@media only screen and (max-width: 56.25em) {
+
+    html {
+        font-size: 50%;
+    }
+
+    .song {
+        grid-template-rows: repeat(5, minmax(min-content, max-content));
+        grid-template-columns: repeat(3, minmax(auto, 1fr));
+    }
+
+    .song-cover {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        align-self: center;
+        justify-self: center;
+    }
+
+    .song-title {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .song-artist-album {
+        grid-column: 1 / -1;
+        grid-row: 3;
+    }
+
+    .song-favorite {
+        grid-column: 1 / -1;
+        grid-row: 4;
+    }
+
+    .song-preview {
+        grid-column: 1 / -1;
+        grid-row: 5;
+    }
+}
+
+@media only screen and (max-width: 43.75em) {
+
+    .form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-label-input,
+    .form-label-select {
+        margin: 1rem 0;
+    }
+
+    .form-input {
+        min-width: 35rem;
+        margin: 0 0;
+    }
+
+    .form-submit {
+        margin-top: 1rem;
+        padding: 1rem 6rem;
+    }
+
+    #resultSection,
+    #favorites {
+        grid-template-columns: minmax(min-content, max-content);
+    }
+
+    .song {
+        grid-template-columns: repeat(3, minmax(min-content, max-content));
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 31.25em) {
+    
+    html {
+        font-size: 37.5%;
+    }
+    
+    .nav {
+        flex-flow:column wrap;
+    }
+
+    .menu {
+        margin-top: 1rem;
+        width: 80%;
+    }
 }
