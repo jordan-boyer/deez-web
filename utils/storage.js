@@ -1,7 +1,7 @@
-//Constante
+/* Constante */
 const storageName = "FavoritesSong";
 
-
+/* Check if a song is save as favorite */
 export function isFavorite(id) {
     let favorites = getFavorites();
     if (favorites.length > 0 && favorites.find((favorite) => favorite.id === id)) {
@@ -10,6 +10,7 @@ export function isFavorite(id) {
     return false;
 }
 
+/* Add music to favorite */
 export function addFavorite(music) {
     let favorites = getFavorites();
 
@@ -17,6 +18,7 @@ export function addFavorite(music) {
     localStorage.setItem(storageName, JSON.stringify(favorites));
 }
 
+/* Remove music from favorite */
 export function removeFavorite(id) {
     let favorites = getFavorites();
 
@@ -24,20 +26,22 @@ export function removeFavorite(id) {
     localStorage.setItem(storageName, JSON.stringify(favorites));
 }
 
+/* Return all favorites song */
 export function getFavorites() {
     return JSON.parse(localStorage.getItem(storageName)) || [];
 }
 
-// return integers between 0 included and max excluded
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max)
-}
-
+/* Return a favorite at random */
 export function getRandomFavorite() {
     let favorites = getFavorites();
     if (favorites.length > 0) {
         return favorites[getRandomInt(favorites.length)];
     }
     return false;
+}
+
+/* Return integers between 0 included and max excluded */
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max)
 }
 

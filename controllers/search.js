@@ -1,19 +1,22 @@
-//Import
+/* Import */
 import {getMusicsFromDeezer} from "../utils/deezer-api";
 import $ from "jquery";
 
 import {addMusicTemplateToPage} from "../utils/template";
 
-//Class definition for page Search
+/* Class definition for page Search */
 export default class Search {
 
     constructor() {
         this.view = "search";
         this.parent = null;
+
+        // New observer interface for checking is elements intersect beetween each other
         this.observer = new IntersectionObserver(this.observe.bind(this));
         this.nextPage = null;
     }
 
+    // Check if entries is intersecting wiht last music to request next page
     observe(entries) {
         if (entries.length > 0 && entries[0].isIntersecting) {
             this.observer.unobserve(entries[0].target);
@@ -23,10 +26,9 @@ export default class Search {
 
     init() {
         $(() => {
-            'use strict';
             const $form = $("form");
             const $title = $form.find("#title");
-            const $tri = $form.find("#tri");
+            const $sorting = $form.find("#sorting");
             this.parent = $("#resultSection");
 
             $form.submit((e) => {
@@ -34,18 +36,18 @@ export default class Search {
                 e.preventDefault();
 
                 let title = $title.val();
-                let tri = $tri.val();
+                let sorting = $sorting.val();
 
-                //get all music base on data
-                this.requestMusic(title, tri, true);
+                this.requestMusic(title, sorting, true);
             });
         });
     }
 
-    requestMusic(title, tri, newRequest = false) {
-        getMusicsFromDeezer(title, tri)
-        .then(musiques => {
-            this.processMusics(musiques, newRequest);
+    //get all music base on data or url(title) if newRequest = false
+    requestMusic(title, sorting, newRequest = false) {
+        getMusicsFromDeezer(title, sorting)
+        .then(musics => {
+            this.processMusics(musics, newRequest);
         }).catch(error => {
             console.log(error);
             this.parent.html(`<span class="span">Nous sommes désolé mais une erreur est parvenue, vous pouvez recharger la page et essayer de nouveau</span>
@@ -53,27 +55,26 @@ export default class Search {
         });
     }
 
-    processMusics(musiques, newRequest = false) {
-        if (musiques.data.length !== 0) {
+    // Go throught all data music and add them to the page
+    processMusics(musics, newRequest = false) {
+        if (musics.data.length > 0) {
             if (newRequest) 
                 this.parent.html("");
-            for (let musique of musiques.data) {
+            for (let music of musics.data) {
                 //define obj for template
                 let musicObj = {
-                    id: musique.id,
-                    title: musique.title,
-                    artist: musique.artist.name,
-                    album: musique.album.title,
-                    album_cover: musique.album.cover_medium,
-                    preview: musique.preview
+                    id: music.id,
+                    title: music.title,
+                    artist: music.artist.name,
+                    album: music.album.title,
+                    album_cover: music.album.cover_medium,
+                    preview: music.preview
                 }
                 //add template for each item
-                
-                addMusicTemplateToPage(this.parent, musicObj);
-                
+                addMusicTemplateToPage(this.parent, musicObj);          
             }
-            if (musiques.next) {
-                this.nextPage = musiques.next;
+            if (musics.next) {
+                this.nextPage = musics.next;
                 this.observer.observe($(".song").last()[0]);
             } 
         } else {

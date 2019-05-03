@@ -1,14 +1,10 @@
-// Import 
+/* Import */
 import $ from "jquery";
 
-import {
-    getRandomFavorite
-} from "../utils/storage";
-import {
-    addMusicTemplateToPage
-} from "../utils/template"
+import {getRandomFavorite} from "../utils/storage";
+import {addMusicTemplateToPage} from "../utils/template"
 
-// Class definition for Home page
+/* Class definition for Home page */
 export default class Home {
 
     constructor() {
@@ -17,7 +13,6 @@ export default class Home {
 
     init() {
         $(() => {
-            "use strict"
             const $sectionFavorite = $("#random-favorite");
             const $randomBtn = $('<button class="btn-random-song"><i class="icon fas fa-random"></i>Choisir une autre musique</button>');
 
@@ -25,6 +20,7 @@ export default class Home {
         });
     }
 
+    // add random music to the home page
     addRandomMusic(params) {
         params = params.data ? params.data: params;
         let music = getRandomFavorite()

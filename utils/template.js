@@ -1,14 +1,14 @@
-//Import
+/* IMPORT */
 import $ from 'jquery';
 
 import {isFavorite, removeFavorite, addFavorite} from "./storage";
 
-//Constante
+/* CONST */
 
 const removeText = '<i class="icon fas"></i>Retirer des favoris';
 const addText = '<i class="icon fas"></i>Ajouter aux favoris';
 
-//event handler for click on removeFavoriteBtn
+/* Event handler for click on removeFavoriteBtn */
 function onRemovefavorite(e) {
     let $self = $(this);
 
@@ -30,7 +30,7 @@ function onRemovefavorite(e) {
     removeFavorite(e.data.id);
 }
 
-//event handler for click on addFavoriteBtn
+/* Event handler for click on addFavoriteBtn */
 function onAddfavorite(e) {
     let $self = $(this);
 
@@ -46,7 +46,7 @@ function onAddfavorite(e) {
     addFavorite(e.data);
 }
 
-//button for favorite
+/* Add button for favorite */
 function addFavoriteBtn(music) {
     let btn = $('<button class="song-favorite"></button>');
     if (isFavorite(music.id)) {
@@ -63,25 +63,27 @@ function addFavoriteBtn(music) {
     return btn;
 }
 
+/* add HTML template of music on page parent and add event listener for playing audio */
 export function addMusicTemplateToPage(parent, music) {
+    
     let musicHtml = musicTemplate(music);
     parent.append(musicHtml);
+
     let $audio = musicHtml.find("audio");
     $audio.on("play", function onplay(e) {
+        
         let $this = $(this);
-
         let $clone = $this.parent().clone();
         let $fixed = $(".fixed");
         
         $this[0].pause();
+        $this.off("play");
+        $fixed.html("").append($clone);
         $clone.addClass("song-play");
         $clone.find(".song-favorite").remove();
         $clone.find(".song-cover").remove();
         $clone.children().addClass("span");
-        $fixed.html("");
-        $fixed.append($clone);
         $clone.find("audio")[0].play();
-        $this.off("play");
         $clone.append('<button class="btn-close"><i class="fas fa-times"></i></button>');
         $(".btn-close").click(() => {
             $this.on("play", onplay);
@@ -91,7 +93,7 @@ export function addMusicTemplateToPage(parent, music) {
     $audio.after(addFavoriteBtn(music));
 }
 
-//template for a music
+/* Create HTML template for a music */
 function musicTemplate(music) {
     return $(`<div class="song">
     <img class="song-cover" src="${music.album_cover}">
